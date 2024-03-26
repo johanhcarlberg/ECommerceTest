@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bunit" Version="1.27.17" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="xunit" Version="2.7.0" />
@@ -23,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.DataAccess\ECommerce.DataAccess.csproj" />
     <ProjectReference Include="..\ECommerceTest.API\ECommerceTest.API.csproj" />
+    <ProjectReference Include="..\ECommerceTest.Frontend\ECommerceTest.Frontend.csproj" />
   </ItemGroup>
 
 </Project>
