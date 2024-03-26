@@ -1,11 +1,11 @@
 ﻿using ECommerce.DataAccess.Entities;
 
-namespace ECommerceTest.API
+namespace ECommerceTest.Shared
 {
-    public interface IProductService
+    public interface IProductService<T> where T : class
     {
-        Task<IEnumerable<Product>> GetProductsAsync();
-        Task<Product?> GetProductByIdAsync(int id);
+        Task<IEnumerable<T>> GetProductsAsync();
+        Task<T?> GetProductByIdAsync(int id);
         Task<bool> AddProduct(Product product);
         Task<bool> UpdateProduct(int id, Product product);
         Task<bool> DeleteProduct(int id);

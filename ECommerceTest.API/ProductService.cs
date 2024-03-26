@@ -1,9 +1,10 @@
 ﻿using ECommerce.DataAccess;
 using ECommerce.DataAccess.Entities;
+using ECommerceTest.Shared;
 
 namespace ECommerceTest.API
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductService<Product>
     {
         IProductRepository _repository;
         public ProductService(IProductRepository repository)

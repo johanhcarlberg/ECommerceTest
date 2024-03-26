@@ -1,5 +1,8 @@
 using ECommerce.DataAccess;
+using ECommerce.DataAccess.Entities;
 using ECommerceTest.API;
+using ECommerceTest.API.Endpoints;
+using ECommerceTest.Shared;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +19,7 @@ builder.Services.AddDbContext<ECommerceDbContext>(
     );
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService<Product>, ProductService>();
 
 var app = builder.Build();
 
@@ -29,10 +32,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/products", async (IProductService service) =>
-{
-    var products = await service.GetProductsAsync();
-    return Results.Ok(products);
-});
+app.RegisterProductEndpoints();
 
 app.Run();

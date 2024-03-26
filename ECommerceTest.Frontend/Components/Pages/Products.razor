@@ -1,0 +1,22 @@
+﻿@page "/products"
+@inject IProductService<ProductDto> ProductService
+@using ECommerceTest.Shared
+@using ECommerceTest.Shared.Dtos
+
+<h3>Products</h3>
+<ul>
+	@foreach(var product in products)
+	{
+		<li>@product.Name</li>
+	}
+</ul>
+
+
+@code {
+	private List<ProductDto> products = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		products.AddRange(await ProductService.GetProductsAsync());
+	}
+}
