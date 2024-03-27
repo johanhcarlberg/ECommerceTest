@@ -32,13 +32,14 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    resultsFolder: '$(Agent.TempDirectory)\TestResults'
     codeCoverageEnabled: true
     otherConsoleOptions: '/logger:"trx;LogFileName=TEST-unit.xml"'
     
 - task: PublishTestResults@2
   inputs:
     testRunner: 'VSTest'
-    testResultsFiles: '$(Agent.TempDirectory)/TestResults/TEST-*.xml'
+    testResultsFiles: '$(Agent.TempDirectory)\TestResults\TEST-*.xml'
 
 - task: PublishCodeCoverageResults@2
   inputs:
