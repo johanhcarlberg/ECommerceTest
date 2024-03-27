@@ -44,3 +44,9 @@ steps:
   inputs:
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/ECommerceTest.Tests/TestResults'
     
+- powershell: |
+   Write-Host "Show all folder content"
+   Get-ChildItem -Path $(Agent.WorkFolder)\*.* -Recurse -Force
+  errorActionPreference: continue
+  displayName: 'PowerShell Script List folder structure'
+  continueOnError: true
