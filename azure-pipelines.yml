@@ -34,22 +34,13 @@ steps:
     configuration: '$(buildConfiguration)'
     resultsFolder: '$(Agent.TempDirectory)\TestResults'
     codeCoverageEnabled: true
-    otherConsoleOptions: '/logger:"trx;LogFileName=TEST-unit.xml"'
-    
+
 - powershell: |
    Write-Host "Show all folder content"
    Get-ChildItem -Path $(Agent.WorkFolder)\*.* -Recurse -Force
   errorActionPreference: continue
   displayName: 'PowerShell Script List folder structure'
   continueOnError: true
-    
-- task: PublishTestResults@2
-  inputs:
-    testRunner: 'VSTest'
-    testResultsFiles: '$(Agent.TempDirectory)\TestResults\TEST-*.xml'
-
-- task: PublishCodeCoverageResults@2
-  inputs:
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/ECommerceTest.Tests/TestResults'
+  
     
 
