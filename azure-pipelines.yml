@@ -32,8 +32,8 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    resultsFolder: 'TestResults'
     codeCoverageEnabled: true
+    otherConsoleOptions: '/logger:"trx;LogFileName=TEST-unit.xml"'
     
 - task: PublishTestResults@2
   inputs:
