@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: '**/*.sln'
@@ -21,26 +21,49 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
+- task: MSBuild@1
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    solution: '${solution}'
+    platform: '${buildPlatform}'
+    configuration: '${buildConfiguration}'
+    msbuildArguments: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: Test
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    resultsFolder: '$(Agent.TempDirectory)\TestResults'
-    codeCoverageEnabled: true
+    command: 'test'
+    projects: '*.Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
+    publishTestResults: true
+
+- task: PublishCodeCoverageResults@2
+  displayName: Collect Code Coverage
+  inputs: 
+    summaryFileLocation: $(Agent.TempDirectory)/*/coverage.cobertura.xml
+
+- task: Npm@1
+  displayName: Install newman
+  inputs:
+    command: 'custom'
+    customCommand: 'install newman -g'
+
+- task: CmdLine@2
+  displayName: Run Newman
+  inputs:
+    script: |
+      'newman run Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
+- task: PublishTestResults@2
+  displayName: Publish Postman Results
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'Postman/**/*.xml'
 
 - task: DockerCompose@0
   inputs:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
-    action: 'Build services'
+    action: 'Run services'
   
     
 
