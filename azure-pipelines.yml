@@ -47,22 +47,17 @@ steps:
     command: 'custom'
     customCommand: 'install newman -g'
 
-- task: CmdLine@2
+- task: DockerCompose@0
   inputs:
-    script: |
-      'tree'
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'GHCR'
+    dockerComposeFile: '**/docker-compose.yml'
+    action: 'Run services'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: 'newman run ./Postman/ECommerceTest.postman_collection.json'
-    
-- task: CmdLine@2
-  displayName: Run Newman
-  inputs:
-    script: |
-      'newman run ./Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
-
 
 - task: PublishTestResults@2
   displayName: Publish Postman Results
@@ -70,12 +65,7 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'Postman/**/*.xml'
 
-- task: DockerCompose@0
-  inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'GHCR'
-    dockerComposeFile: '**/docker-compose.yml'
-    action: 'Run services'
+
   
     
 
