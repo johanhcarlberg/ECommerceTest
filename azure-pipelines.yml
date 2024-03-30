@@ -63,7 +63,7 @@ steps:
   displayName: Publish Postman Results
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'Postman/**/*.xml'
+    testResultsFiles: '**/newman-run-report*.xml'
 
 
   
