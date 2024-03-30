@@ -31,7 +31,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '${solution}'
+    projects: '*.Tests/*.csproj'
 
 - task: DockerCompose@0
   inputs:
