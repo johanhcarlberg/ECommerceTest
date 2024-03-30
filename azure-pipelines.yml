@@ -38,7 +38,7 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
-    action: 'Build services'
+    action: 'Run services'
   
     
 
