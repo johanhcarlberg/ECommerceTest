@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./ECommerceTest.API/Dockerfile
+    ports:
+      - "8888:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=ECommerceDB;User Id=sa;Password=strongPassword1;TrustServerCertificate=true
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: .
+      dockerfile: ./ECommerceTest.Frontend/Dockerfile
+    ports:
+      - "8889:8080"
+    environment:
+      - API__Api.Host=api
+      - API__Api.Port=8080
+  db:
+    build:
+      context: .
+      dockerfile: ./mssql-docker/Dockerfile
+    environment:
+      - ACCEPT_EULA="Y"
+      - MSSQL_SA_PASSWORD=strongPassword1
+      - SA_PASSWORD=strongPassword1
+      - DATABASE=ECommerceDB
+    ports:
+      - "1433:1433"
