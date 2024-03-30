@@ -38,10 +38,9 @@ steps:
 - task: DockerCompose@0
   inputs:
     containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
-    action: 'Run a Docker Compose command'
-    dockerComposeCommand: 'build'
-    
+    action: 'Build services'
   
     
 
