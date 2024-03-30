@@ -7,17 +7,12 @@ namespace ECommerceTest.API
     public class ProductService : IProductService<Product>
     {
         IProductRepository _repository;
-        ILogger _logger;
-        IConfiguration _configuration;
-        public ProductService(IProductRepository repository, ILogger<ProductService> logger, IConfiguration configuration)
+        public ProductService(IProductRepository repository)
         {
             _repository = repository;
-            _logger = logger;
-            _configuration = configuration;
         }
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            _logger.LogWarning(_configuration.GetConnectionString("DefaultConnection"));
             return await _repository.GetProducts();
         }
         public async Task<Product?> GetProductByIdAsync(int id)
