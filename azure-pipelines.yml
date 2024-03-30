@@ -51,7 +51,7 @@ steps:
   displayName: Run Newman
   inputs:
     script: |
-      'newman run Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
+      'newman run ${Agent.WorkFolder}/Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
 - task: PublishTestResults@2
   displayName: Publish Postman Results
   inputs:
