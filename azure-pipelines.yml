@@ -48,10 +48,15 @@ steps:
     customCommand: 'install newman -g'
 
 - task: CmdLine@2
+  inputs:
+    script: |
+      'tree'
+
+- task: CmdLine@2
   displayName: Run Newman
   inputs:
     script: |
-      'newman run ${Agent.WorkFolder}/Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
+      'newman run $(System.DefaultWorkingDirectory)/Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
 - task: PublishTestResults@2
   displayName: Publish Postman Results
   inputs:
