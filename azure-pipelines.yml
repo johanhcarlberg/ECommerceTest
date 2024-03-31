@@ -65,16 +65,11 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-run-report*.xml'
 
-- task: DockerCompose@0
+- task: Docker@2
   inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'GHCR'
-    dockerComposeFile: '**/docker-compose.yml'
-    projectName: '/$(Build.Repository.Name)'
-    qualifyImageNames: true
-    action: 'Push services'
-    includeLatestTag: true
-
+    containerRegistry: 'GHCR'
+    repository: 'johanhcarlberg/ECommerceTest'
+    command: 'push'
 
   
     
