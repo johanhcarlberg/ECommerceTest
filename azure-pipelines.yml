@@ -67,6 +67,8 @@ steps:
     containerRegistry: 'GHCR'
     repository: 'johanhcarlberg/ecommercetest_api'
     command: 'push'
+    tags: |
+      latest
 
 - task: Docker@2
   inputs:
