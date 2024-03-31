@@ -47,6 +47,11 @@ steps:
     command: 'custom'
     customCommand: 'install newman -g'
 
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    command: 'login'
+  
 - task: CmdLine@2
   displayName: docker compose up
   inputs:
