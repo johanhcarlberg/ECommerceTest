@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: ./ECommerceTest.API/Dockerfile
+    image: ghcr.io/johanhcarlberg/ecommercetest_api
     ports:
       - "8888:8080"
     environment:
@@ -14,6 +15,7 @@ services:
     build:
       context: .
       dockerfile: ./ECommerceTest.Frontend/Dockerfile
+    image: ghcr.io/johanhcarlberg/ecommercetest_frontend
     ports:
       - "8889:8080"
     environment:
@@ -23,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./mssql-docker/Dockerfile
+    image: ghcr.io/johanhcarlberg/ecommercetest_db
     environment:
       - ACCEPT_EULA="Y"
       - MSSQL_SA_PASSWORD=strongPassword1
