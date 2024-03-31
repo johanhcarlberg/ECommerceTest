@@ -47,10 +47,9 @@ steps:
     command: 'custom'
     customCommand: 'install newman -g'
 
-- task: DockerCompose@0
+- task: CmdLine@2
   inputs:
-    dockerComposeFile: '**/docker-compose.yml'
-    action: 'Run services'
+    script: 'docker-compose up -d'
 
 - task: Bash@3
   inputs:
