@@ -52,6 +52,7 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
+    projectName: "johanhcarlberg/ecommercetest"
     action: 'Run services'
 
 - task: Bash@3
@@ -65,12 +66,15 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-run-report*.xml'
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'GHCR'
-    repository: 'johanhcarlberg/ECommerceTest'
-    command: 'push'
 
+- task: DockerCompose@0
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'GHCR'
+    dockerComposeFile: '**/docker-compose.yml'
+    projectName: 'johanhcarlberg/ecommercetest'
+    action: 'Push services'
+    includeLatestTag: true
   
     
 
