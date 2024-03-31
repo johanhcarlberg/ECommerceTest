@@ -52,7 +52,7 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
-    projectName: "'johanhcarlberg/ecommercetest'"
+    projectName: "'johanhcarlberg.ecommercetest'"
     action: 'Run services'
 
 - task: Bash@3
@@ -72,7 +72,7 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
-    projectName: "'johanhcarlberg/ecommercetest'"
+    projectName: "'johanhcarlberg.ecommercetest'"
     action: 'Push services'
     includeLatestTag: true
   
