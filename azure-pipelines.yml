@@ -49,23 +49,35 @@ steps:
 
 - task: DockerCompose@0
   inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
     action: 'Run services'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'newman run ./Postman/ECommerceTest.postman_collection.json'
+    script: 'newman run ./Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
 
 - task: PublishTestResults@2
   displayName: Publish Postman Results
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'Postman/**/*.xml'
-
-
+    testResultsFiles: '**/newman-run-report*.xml'
   
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    repository: 'johanhcarlberg/ecommercetest_api'
+    command: 'push'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    repository: 'johanhcarlberg/ecommercetest_db'
+    command: 'push'
     
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    repository: 'johanhcarlberg/ecommercetest_frontend'
+    command: 'push'
 
