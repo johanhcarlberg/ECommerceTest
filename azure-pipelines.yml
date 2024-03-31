@@ -75,10 +75,14 @@ steps:
     containerRegistry: 'GHCR'
     repository: 'johanhcarlberg/ecommercetest_db'
     command: 'push'
+    tags: |
+      latest
     
 - task: Docker@2
   inputs:
     containerRegistry: 'GHCR'
     repository: 'johanhcarlberg/ecommercetest_frontend'
     command: 'push'
+    tags: |
+      latest
 
