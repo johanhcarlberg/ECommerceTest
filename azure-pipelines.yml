@@ -49,10 +49,7 @@ steps:
 
 - task: DockerCompose@0
   inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'GHCR'
     dockerComposeFile: '**/docker-compose.yml'
-    projectName: ecommercetest
     action: 'Run services'
 
 - task: Bash@3
@@ -71,5 +68,16 @@ steps:
     containerRegistry: 'GHCR'
     repository: 'johanhcarlberg/ecommercetest_api'
     command: 'push'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    repository: 'johanhcarlberg/ecommercetest_db'
+    command: 'push'
     
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    repository: 'johanhcarlberg/ecommercetest_frontend'
+    command: 'push'
 
