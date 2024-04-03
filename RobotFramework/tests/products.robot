@@ -5,13 +5,9 @@ Metadata    User story link    https://dev.azure.com/johanhcarlberg/ECommerceTes
 Metadata    User story id    10
 Metadata    User story name    As a customer I want to be able to list all products so that I can select a product to buy
 Library    SeleniumLibrary
-Library    webdriver_manager
-Suite Setup    Setup chrome driver
-
 *** Variables ***
 ${API_URL}    http://localhost:8889
 ${BROWSER}    chrome
-${CHROME_DRIVER}    
 
 *** Test Cases ***
 Products page should list products
@@ -25,7 +21,7 @@ Products page should list products
 Open browser and maximize
     [Documentation]    Keyword for opening browser and maximizing
     ...    used for suite setup
-    Open Browser    browser=chrome    executable_path=${CHROME_DRIVER}
+    Open Browser    browser=${BROWSER}
     Maximize Browser Window
     Set Selenium Speed    0.1
 
@@ -37,7 +33,4 @@ User goes to Products page
 
 Page should display products
     Wait Until Page Contains    Test Product 1
-
-Setup chrome driver
-    ${CHROME_DRIVER}=    Evaluate    webdriver_manager.chrome.ChromeDriverManager().install()    modules=webdriver_manager.chrome
     
