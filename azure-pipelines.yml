@@ -78,6 +78,7 @@ steps:
 - script: 'ls -l /opt/hostedtoolcache/Python/**/x64/'
 
 - script: 'which python'
+- script: 'which python3'
 
 - task: CmdLine@2
   displayName: Install pip requirements
