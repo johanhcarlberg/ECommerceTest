@@ -28,7 +28,6 @@ services:
     image: ghcr.io/johanhcarlberg/ecommercetest_db
     environment:
       - ACCEPT_EULA="Y"
-      - MSSQL_SA_PASSWORD=strongPassword1
       - SA_PASSWORD=strongPassword1
       - DATABASE=ECommerceDB
     ports:
