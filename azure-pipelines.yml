@@ -15,28 +15,6 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '>=3.8.3'
-    addToPath: true
-    architecture: 'x64'
-
-- script: 'ls -l /opt/hostedtoolcache/Python/**/x64/'
-
-- script: 'which pip'
-- script: 'which pip3'
-- script: 'python --version'
-- script: 'python -m pip install -r requirements.txt'
-  workingDirectory: 'RobotFramework'
-
-- task: CmdLine@2
-  displayName: Install pip requirements
-  inputs:
-    script: |
-      'python --version'
-      'python -m pip install -r requirements.txt'
-    workingDirectory: 'RobotFramework'
-
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -93,14 +71,19 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-run-report*.xml'
     
-
-
-- task: CmdLine@2
-  displayName: Run Robot Framework tests
+- task: UsePythonVersion@0
   inputs:
-    script: |
-      'python -m robot -d "results" -x "xunit" --nostatusrc tests/products.robot'
-    workingDirectory: 'RobotFramework'
+    versionSpec: '>=3.8.3'
+    addToPath: true
+    architecture: 'x64'
+
+- script: 'python -m pip install -r requirements.txt'
+  workingDirectory: 'RobotFramework'
+  displayName: Install Robot Framework requirements
+
+- script: 'python -m robot -d "results" -x "xunit" --nostatusrc tests/products.robot'
+  displayName: Run Robot Framework tests
+  workingDirectory: 'RobotFramework'
 
 - task: PublishTestResults@2
   inputs:
