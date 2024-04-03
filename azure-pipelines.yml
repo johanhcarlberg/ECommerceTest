@@ -76,6 +76,9 @@ steps:
     architecture: 'x64'
 
 - script: 'ls -l /opt/hostedtoolcache/Python/**/x64/'
+
+- script: 'which python'
+
 - task: CmdLine@2
   displayName: Install pip requirements
   inputs:
