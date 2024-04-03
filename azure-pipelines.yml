@@ -23,8 +23,8 @@ steps:
 
 - script: 'ls -l /opt/hostedtoolcache/Python/**/x64/'
 
-- script: 'which python'
-- script: 'which python3'
+- script: 'which pip'
+- script: 'which pip3'
 - script: 'python --version'
 - script: 'python -m pip install -r requirements.txt'
   workingDirectory: 'RobotFramework'
