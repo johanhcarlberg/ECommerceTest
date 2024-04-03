@@ -71,7 +71,7 @@ steps:
     
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.8.3'
+    versionSpec: '>=3.10'
     addToPath: true
     architecture: 'x64'
 - task: CmdLine@2
