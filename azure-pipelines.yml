@@ -74,6 +74,8 @@ steps:
     versionSpec: '>=3.8.3'
     addToPath: true
     architecture: 'x64'
+
+- script: 'ls -l /opt/hostedtoolcache/Python/*/x64/'
 - task: CmdLine@2
   displayName: Install pip requirements
   inputs:
