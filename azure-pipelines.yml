@@ -21,6 +21,25 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '>=3.8.3'
+    addToPath: true
+    architecture: 'x64'
+
+- script: 'ls -l /opt/hostedtoolcache/Python/**/x64/'
+
+- script: 'which python'
+- script: 'which python3'
+
+- task: CmdLine@2
+  displayName: Install pip requirements
+  inputs:
+    script: |
+      'python --version'
+      'python -m pip install -r requirements.txt'
+    workingDirectory: 'RobotFramework'
+
 - task: MSBuild@1
   inputs:
     solution: '${solution}'
@@ -69,24 +88,7 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-run-report*.xml'
     
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '>=3.8.3'
-    addToPath: true
-    architecture: 'x64'
 
-- script: 'ls -l /opt/hostedtoolcache/Python/**/x64/'
-
-- script: 'which python'
-- script: 'which python3'
-
-- task: CmdLine@2
-  displayName: Install pip requirements
-  inputs:
-    script: |
-      'python -m pip install --upgrade pip'
-      'python -m pip install -r requirements.txt'
-    workingDirectory: 'RobotFramework'
 
 - task: CmdLine@2
   displayName: Run Robot Framework tests
