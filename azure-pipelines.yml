@@ -68,6 +68,28 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-run-report*.xml'
+    
+- task: CmdLine@2
+  displayName: Install pip requirements
+  inputs:
+    script: |
+      'python -m pip install --upgrade pip'
+      'python -m pip install -r requirements.txt'
+    workingDirectory: 'RobotFramework'
+
+- task: CmdLine@2
+  displayName: Run Robot Framework tests
+  inputs:
+    script: |
+      'python -m robot -d "results" -x "xunit" --nostatusrc tests/products.robot'
+    workingDirectory: 'RobotFramework'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'XUnit'
+    testResultsFiles: 'xunit.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
+    failTaskOnFailedTests: true
 
 - task: CmdLine@2
   displayName: docker compose push
