@@ -21,7 +21,7 @@ Products page should list products
 Open browser and maximize
     [Documentation]    Keyword for opening browser and maximizing
     ...    used for suite setup
-    Open Browser    browser=headlesschrome    options=add_argument("--disable-dev-shm-usage")
+    Open Browser    browser=headlesschrome
     Maximize Browser Window
     Set Selenium Speed    0.1
 
