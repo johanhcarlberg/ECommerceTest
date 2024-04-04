@@ -96,8 +96,10 @@ steps:
     failTaskOnFailedTests: true
 
 - task: PublishPipelineArtifact@1
+  displayName: Publish Robot Framework Reports
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
+    artifact: 'Robot Framework Reports'
 
 - task: CmdLine@2
   displayName: docker compose push
