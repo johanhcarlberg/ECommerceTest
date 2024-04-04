@@ -102,6 +102,11 @@ steps:
     artifact: 'Robot Framework Reports'
 
 - task: CmdLine@2
-  displayName: docker compose push
+  displayName: docker push
   inputs:
-    script: 'docker-compose push'
+    script: 'docker push ghcr.io/johanhcarlberg/ecommercetest_frontend'
+
+- task: CmdLine@2
+  displayName: docker push
+  inputs:
+    script: 'ghcr.io/johanhcarlberg/ecommercetest_api'
