@@ -90,7 +90,7 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFormat: 'XUnit'
+    testResultsFormat: 'JUnit'
     testResultsFiles: 'xunit.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
     failTaskOnFailedTests: true
