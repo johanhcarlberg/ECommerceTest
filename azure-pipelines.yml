@@ -109,4 +109,4 @@ steps:
 - task: CmdLine@2
   displayName: docker push
   inputs:
-    script: 'ghcr.io/johanhcarlberg/ecommercetest_api'
+    script: 'docker push ghcr.io/johanhcarlberg/ecommercetest_api'
