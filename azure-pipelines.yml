@@ -77,6 +77,9 @@ steps:
     addToPath: true
     architecture: 'x64'
 
+- script: 'export DISPLAY=:1'
+  displayName: Set Display Environment Variable
+
 - script: 'python -m pip install -r requirements.txt'
   workingDirectory: 'RobotFramework'
   displayName: Install Robot Framework requirements
