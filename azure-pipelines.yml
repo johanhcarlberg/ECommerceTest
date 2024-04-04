@@ -21,6 +21,8 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+
+
 - task: MSBuild@1
   inputs:
     solution: '${solution}'
@@ -55,7 +57,7 @@ steps:
 - task: CmdLine@2
   displayName: docker compose up
   inputs:
-    script: 'docker-compose up -d --build'
+    script: 'docker-compose up -d'
 
 - task: Bash@3
   displayName: Run newman
@@ -69,20 +71,19 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-run-report*.xml'
     
-- task: CmdLine@2
-  displayName: Install pip requirements
+- task: UsePythonVersion@0
   inputs:
-    script: |
-      'python -m pip install --upgrade pip'
-      'python -m pip install -r requirements.txt'
-    workingDirectory: 'RobotFramework'
+    versionSpec: '>=3.8.3'
+    addToPath: true
+    architecture: 'x64'
 
-- task: CmdLine@2
+- script: 'python -m pip install -r requirements.txt'
+  workingDirectory: 'RobotFramework'
+  displayName: Install Robot Framework requirements
+
+- script: 'python -m robot -d "results" -x "xunit" --nostatusrc --variable BROWSER=headlesschrome tests/products.robot'
   displayName: Run Robot Framework tests
-  inputs:
-    script: |
-      'python -m robot -d "results" -x "xunit" --nostatusrc tests/products.robot'
-    workingDirectory: 'RobotFramework'
+  workingDirectory: 'RobotFramework'
 
 - task: PublishTestResults@2
   inputs:
