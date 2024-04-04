@@ -95,6 +95,10 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
     failTaskOnFailedTests: true
 
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
+
 - task: CmdLine@2
   displayName: docker compose push
   inputs:
