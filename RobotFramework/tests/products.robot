@@ -21,7 +21,9 @@ Products page should list products
 Open browser and maximize
     [Documentation]    Keyword for opening browser and maximizing
     ...    used for suite setup
-    Open Browser    browser=headlesschrome
+    Open Browser    browser=${BROWSER}
+    Log To Console    ${API_URL}
+    Log To Console    ${BROWSER}
     Maximize Browser Window
     Set Selenium Speed    0.1
 
