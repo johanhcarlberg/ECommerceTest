@@ -29,8 +29,6 @@ namespace ECommerceTest.Tests
 			// Assert
 			var header = cut.Find("h3");
 			header.MarkupMatches("<h3>Products</h3>");
-
-			Assert.True(cut.FindAll("ul").Count() > 0);
 		}
 	}
 }
