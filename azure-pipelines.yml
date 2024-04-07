@@ -57,7 +57,7 @@ steps:
 - task: CmdLine@2
   displayName: docker compose up
   inputs:
-    script: 'docker-compose up -d'
+    script: 'docker-compose up --build -d'
 
 - task: Bash@3
   displayName: Run newman
@@ -84,7 +84,7 @@ steps:
   workingDirectory: 'RobotFramework'
   displayName: Install Robot Framework requirements
 
-- script: 'python -m robot -d "results" -x "xunit" --nostatusrc --variable BROWSER=headlesschrome tests/products.robot'
+- script: 'python -m robot -d "results" -x "xunit" --nostatusrc --variable BROWSER:headlesschrome tests/products.robot'
   displayName: Run Robot Framework tests
   workingDirectory: 'RobotFramework'
 
