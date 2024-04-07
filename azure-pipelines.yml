@@ -21,8 +21,6 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-
-
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -57,7 +55,7 @@ steps:
 - task: CmdLine@2
   displayName: docker compose up
   inputs:
-    script: 'docker-compose up --build -d'
+    script: 'docker-compose up --build --wait -d'
 
 - task: Bash@3
   displayName: Run newman
