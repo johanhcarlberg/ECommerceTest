@@ -19,8 +19,7 @@ services:
     ports:
       - "8889:8080"
     environment:
-      - API__Api.Host=api
-      - API__Api.Port=8080
+      - baseAddress=http://api:8080
   db:
     build:
       context: .

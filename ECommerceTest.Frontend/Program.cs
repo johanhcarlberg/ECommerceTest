@@ -11,7 +11,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient("ecommerceTestApi",
     client =>
-        client.BaseAddress = new Uri($"http://{builder.Configuration["API:Api.Host"]}:{builder.Configuration["API:Api.Port"]}")
+        client.BaseAddress = new Uri(builder.Configuration["baseAddress"] ?? "http://localhost:7051")
     );
 builder.Services.AddSingleton<IProductService<ProductDto>, ProductService>();
 
