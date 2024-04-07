@@ -127,3 +127,15 @@ steps:
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'ECommerceTest'
+
+- task: PublishPipelineArtifact@1
+  displayName: Publish Robot Framework Test files Artifact
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/RobotFramework' 
+    artifactName: 'Robot Framework Test Files'
+
+- task: PublishPipelineArtifact@1
+  displayName: Publish Postman Test files Artifact
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/Postman' 
+    artifactName: 'Postman Test Files'
