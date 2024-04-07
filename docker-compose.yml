@@ -33,6 +33,7 @@ services:
     ports:
       - "1433:1433"
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-U sa", "-P strongPassword1", "-Q", "SELECT 1"]
-      interval: 1s
-      retries: 30
+      test: "/opt/mssql-tools/bin/sqlcmd -U sa -P strongPassword1 -Q 'SELECT 1'"
+      interval: 5s
+      retries: 60
+      start_period: 30s
