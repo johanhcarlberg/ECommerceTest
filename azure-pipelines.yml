@@ -84,7 +84,7 @@ steps:
   workingDirectory: 'RobotFramework'
   displayName: Install Robot Framework requirements
 
-- script: 'python -m robot -d "results" -x "xunit" --nostatusrc --variable BROWSER=headlesschrome tests/products.robot'
+- script: 'python -m robot -d "results" -x "xunit" --nostatusrc --variable BROWSER:headlesschrome tests/products.robot'
   displayName: Run Robot Framework tests
   workingDirectory: 'RobotFramework'
 
