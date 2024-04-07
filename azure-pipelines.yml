@@ -57,7 +57,7 @@ steps:
 - task: CmdLine@2
   displayName: docker compose up
   inputs:
-    script: 'docker-compose up -d'
+    script: 'docker-compose up --build -d'
 
 - task: Bash@3
   displayName: Run newman
