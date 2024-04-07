@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceTest.Shared", "Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceTest.Tests", "ECommerceTest.Tests\ECommerceTest.Tests.csproj", "{4C8F263A-A47F-47E2-9A6C-F951F49E8C5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceTest.Frontend", "ECommerceTest.Frontend\ECommerceTest.Frontend.csproj", "{106649E8-301C-42F0-8C5E-AA0A36C2ED36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceTest.Frontend", "ECommerceTest.Frontend\ECommerceTest.Frontend.csproj", "{106649E8-301C-42F0-8C5E-AA0A36C2ED36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

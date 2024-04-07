@@ -49,3 +49,20 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.topbar {
+    display: flex;
+}
+
+.top-nav-right {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.top-navbar {
+    flex: 1;
+}
+
+.product-card {
+    width: 12rem;
+}

@@ -1,17 +1,26 @@
 ﻿@page "/products"
+@rendermode InteractiveServer
 @inject IProductService<ProductDto> ProductService
 @using ECommerceTest.Shared
 @using ECommerceTest.Shared.Dtos
 
 <h3>Products</h3>
-<ul>
+	<div class="row row-cols-1 row-cols-md-2 row-cols-sm-1 row-cols-lg-3  g-3 g-lg-3">
 	@foreach(var product in products)
 	{
-		<li>@product.Name</li>
+		<div class="col d-flex">
+			<div class="card product-card flex-fill">
+				<div class="card-body">
+					<h5 class="card-title">
+					@product.Name
+					</h5>
+					<p class="card-text">@product.Price kr</p>
+					<a href="#" class="btn btn-primary">Add to cart</a>
+				</div>
+			</div>
+		</div>
 	}
-</ul>
-
-
+	</div>
 @code {
 	private List<ProductDto> products = new();
 

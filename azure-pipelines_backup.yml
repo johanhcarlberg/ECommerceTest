@@ -1,0 +1,112 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+
+
+- task: MSBuild@1
+  inputs:
+    solution: '${solution}'
+    platform: '${buildPlatform}'
+    configuration: '${buildConfiguration}'
+    msbuildArguments: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: 'test'
+    projects: '*.Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
+    publishTestResults: true
+
+- task: PublishCodeCoverageResults@2
+  displayName: Collect Code Coverage
+  inputs: 
+    summaryFileLocation: $(Agent.TempDirectory)/*/coverage.cobertura.xml
+
+- task: Npm@1
+  displayName: Install newman
+  inputs:
+    command: 'custom'
+    customCommand: 'install newman -g'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'GHCR'
+    command: 'login'
+  
+- task: CmdLine@2
+  displayName: docker compose up
+  inputs:
+    script: 'docker-compose up -d'
+
+- task: Bash@3
+  displayName: Run newman
+  inputs:
+    targetType: 'inline'
+    script: 'newman run ./Postman/ECommerceTest.postman_collection.json -r cli,junit --env-var api_url=http://localhost:8888'
+
+- task: PublishTestResults@2
+  displayName: Publish Postman Results
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/newman-run-report*.xml'
+    
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '>=3.8.3'
+    addToPath: true
+    architecture: 'x64'
+
+- script: 'export DISPLAY=:1'
+  displayName: Set Display Environment Variable
+
+- script: 'python -m pip install -r requirements.txt'
+  workingDirectory: 'RobotFramework'
+  displayName: Install Robot Framework requirements
+
+- script: 'python -m robot -d "results" -x "xunit" --nostatusrc --variable BROWSER=headlesschrome tests/products.robot'
+  displayName: Run Robot Framework tests
+  workingDirectory: 'RobotFramework'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'xunit.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
+    failTaskOnFailedTests: true
+
+- task: PublishPipelineArtifact@1
+  displayName: Publish Robot Framework Reports
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
+    artifact: 'Robot Framework Reports'
+
+- task: CmdLine@2
+  displayName: docker push
+  inputs:
+    script: 'docker push ghcr.io/johanhcarlberg/ecommercetest_frontend'
+
+- task: CmdLine@2
+  displayName: docker push
+  inputs:
+    script: 'docker push ghcr.io/johanhcarlberg/ecommercetest_api'
