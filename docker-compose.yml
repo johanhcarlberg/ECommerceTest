@@ -32,3 +32,9 @@ services:
       - DATABASE=ECommerceDB
     ports:
       - "1433:1433"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-U sa", "-P strongPassword1", "-Q", "SELECT 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 2m
