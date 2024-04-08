@@ -41,7 +41,19 @@ steps:
   inputs: 
     summaryFileLocation: $(Agent.TempDirectory)/*/coverage.cobertura.xml
 
+- task: CmdLine@2
+  inputs:
+    script: 'tree'
 
+- task: CmdLine@2
+  inputs:
+    script: 'dotnet run ECommerceTest.API.dll &'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
+
+- task: CmdLine@2
+  inputs:
+    script: 'dotnet run ECommerceTest.Frontend.dll &'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
 
 - task: Npm@1
   displayName: Install newman
@@ -84,20 +96,6 @@ steps:
     testResultsFiles: 'xunit.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
     failTaskOnFailedTests: true
-
-- task: CmdLine@2
-  inputs:
-    script: 'tree'
-
-- task: CmdLine@2
-  inputs:
-    script: 'dotnet run ECommerceTest.API.dll &'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
-
-- task: CmdLine@2
-  inputs:
-    script: 'dotnet run ECommerceTest.Frontend.dll &'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
 
 - task: PublishPipelineArtifact@1
   displayName: Publish Robot Framework Reports
