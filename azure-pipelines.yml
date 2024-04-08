@@ -55,13 +55,13 @@ steps:
     arguments: '-o publish'
 
 - script: 'nohup dotnet ECommerceTest.API.dll &'
-  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/publish'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/publish/ECommerceTest.API/'
   env:
     ASPNETCORE_URLS: 'http://localhost:8888'
     ConnectionStrings__DefaultConnection: 'Server=tcp:ecommercetest-sql.database.windows.net,1433;Initial Catalog=ecommercetest-sql;Persist Security Info=False;User ID=${dbUser};Password=${dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
 
 - script: 'nohup dotnet ECommerceTest.Frontend.dll &'
-  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/publish'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/publish/ECommerceTest.Frontend/'
   env:
     ASPNETCORE_URLS: 'http://localhost:8889'
 
