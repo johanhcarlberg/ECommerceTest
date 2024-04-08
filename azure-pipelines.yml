@@ -45,15 +45,15 @@ steps:
   inputs:
     script: 'tree'
 
-- task: CmdLine@2
-  inputs:
-    script: 'dotnet ECommerceTest.API.dll &'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
+- script: 'dotnet ECommerceTest.API.dll &'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
+  env:
+    ASPNETCORE_URLS: 'http://localhost:8888/'
 
-- task: CmdLine@2
-  inputs:
-    script: 'dotnet ECommerceTest.Frontend.dll &'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
+- script: 'dotnet ECommerceTest.Frontend.dll &'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
+  env:
+    ASPNETCORE_URLS: 'http://localhost:8889/'
 
 - task: Npm@1
   displayName: Install newman
