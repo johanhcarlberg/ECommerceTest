@@ -5,27 +5,32 @@
 @using ECommerceTest.Shared.Dtos
 
 <h3>Products</h3>
+@if (products == null) {
+	<div>Loading...</div>
+} else {
 	<div class="row row-cols-1 row-cols-md-2 row-cols-sm-1 row-cols-lg-3  g-3 g-lg-3">
-	@foreach(var product in products)
+	@foreach (var product in products)
 	{
-		<div class="col d-flex">
-			<div class="card product-card flex-fill">
-				<div class="card-body">
-					<h5 class="card-title">
-					@product.Name
-					</h5>
-					<p class="card-text">@product.Price kr</p>
-					<a href="#" class="btn btn-primary">Add to cart</a>
+				<div class="col d-flex">
+					<div class="card product-card flex-fill">
+						<div class="card-body">
+							<h5 class="card-title">
+						@product.Name
+							</h5>
+							<p class="card-text">@product.Price kr</p>
+							<a href="#" class="btn btn-primary">Add to cart</a>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
 	}
 	</div>
+}
+
 @code {
-	private List<ProductDto> products = new();
+	private List<ProductDto>? products;
 
 	protected override async Task OnInitializedAsync()
 	{
-		products.AddRange(await ProductService.GetProductsAsync());
+		products = (await ProductService.GetProductsAsync()).ToList();
 	}
 }
