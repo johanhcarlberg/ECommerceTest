@@ -53,6 +53,7 @@ steps:
       ECommerceTest.API/**.csproj
       ECommerceTest.Frontend/**.csproj
     arguments: '-o publish'
+    zipAfterPublish: false
 
 - script: 'nohup dotnet ECommerceTest.API.dll &'
   workingDirectory: '$(System.DefaultWorkingDirectory)/publish/ECommerceTest.API'
