@@ -408,3 +408,5 @@ FodyWeavers.xsd
 efbundle.exe
 
 newman*.xml
+
+newman/* 
