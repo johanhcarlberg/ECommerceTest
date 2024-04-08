@@ -41,9 +41,7 @@ steps:
   inputs: 
     summaryFileLocation: $(Agent.TempDirectory)/*/coverage.cobertura.xml
 
-- task: CmdLine@2
-  inputs:
-    script: 'tree'
+
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -54,6 +52,10 @@ steps:
       ECommerceTest.Frontend/**.csproj
     arguments: '-o publish'
     zipAfterPublish: false
+
+- task: CmdLine@2
+  inputs:
+    script: 'tree'
 
 - script: 'nohup dotnet ECommerceTest.API.dll &'
   workingDirectory: '$(System.DefaultWorkingDirectory)/publish/ECommerceTest.API'
