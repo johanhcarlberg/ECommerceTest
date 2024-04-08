@@ -45,16 +45,16 @@ steps:
   inputs:
     script: 'tree'
 
-- script: 'nohup dotnet ECommerceTest.API.dll'
+- script: 'nohup dotnet ECommerceTest.API.dll &'
   workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
   env:
-    ASPNETCORE_URLS: 'http://localhost:8888/'
+    ASPNETCORE_URLS: 'http://localhost:8888'
     ConnectionStrings__DefaultConnection: 'Server=tcp:ecommercetest-sql.database.windows.net,1433;Initial Catalog=ecommercetest-sql;Persist Security Info=False;User ID=${dbUser};Password=${dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
 
-- script: 'nohup dotnet ECommerceTest.Frontend.dll'
+- script: 'nohup dotnet ECommerceTest.Frontend.dll &'
   workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
   env:
-    ASPNETCORE_URLS: 'http://localhost:8889/'
+    ASPNETCORE_URLS: 'http://localhost:8889'
 
 - task: Npm@1
   displayName: Install newman
