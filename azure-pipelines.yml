@@ -45,14 +45,23 @@ steps:
   inputs:
     script: 'tree'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: |
+      ECommerceTest.API/**.csproj
+      ECommerceTest.Frontend/**.csproj
+    arguments: '-o publish'
+
 - script: 'nohup dotnet ECommerceTest.API.dll &'
-  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/publish'
   env:
     ASPNETCORE_URLS: 'http://localhost:8888'
     ConnectionStrings__DefaultConnection: 'Server=tcp:ecommercetest-sql.database.windows.net,1433;Initial Catalog=ecommercetest-sql;Persist Security Info=False;User ID=${dbUser};Password=${dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
 
 - script: 'nohup dotnet ECommerceTest.Frontend.dll &'
-  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/publish'
   env:
     ASPNETCORE_URLS: 'http://localhost:8889'
 
