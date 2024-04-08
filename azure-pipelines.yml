@@ -41,21 +41,13 @@ steps:
   inputs: 
     summaryFileLocation: $(Agent.TempDirectory)/*/coverage.cobertura.xml
 
+
+
 - task: Npm@1
   displayName: Install newman
   inputs:
     command: 'custom'
     customCommand: 'install newman -g'
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'GHCR'
-    command: 'login'
-  
-- task: CmdLine@2
-  displayName: docker compose up
-  inputs:
-    script: 'docker compose up --build --wait -d'
 
 - task: Bash@3
   displayName: Run newman
@@ -93,21 +85,25 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
     failTaskOnFailedTests: true
 
+- task: CmdLine@2
+  inputs:
+    script: 'tree'
+
+- task: CmdLine@2
+  inputs:
+    script: 'dotnet run ECommerceTest.API.dll &'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
+
+- task: CmdLine@2
+  inputs:
+    script: 'dotnet run ECommerceTest.Frontend.dll &'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
+
 - task: PublishPipelineArtifact@1
   displayName: Publish Robot Framework Reports
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
     artifact: 'Robot Framework Reports'
-
-- task: CmdLine@2
-  displayName: docker push
-  inputs:
-    script: 'docker push ghcr.io/johanhcarlberg/ecommercetest_frontend'
-
-- task: CmdLine@2
-  displayName: docker push
-  inputs:
-    script: 'docker push ghcr.io/johanhcarlberg/ecommercetest_api'
 
 - task: DotNetCoreCLI@2
   inputs:
