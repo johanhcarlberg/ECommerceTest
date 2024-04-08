@@ -47,12 +47,12 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'dotnet run ECommerceTest.API.dll &'
+    script: 'dotnet ECommerceTest.API.dll &'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.API/bin/Release/net8.0'
 
 - task: CmdLine@2
   inputs:
-    script: 'dotnet run ECommerceTest.Frontend.dll &'
+    script: 'dotnet ECommerceTest.Frontend.dll &'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ECommerceTest.Frontend/bin/Release/net8.0'
 
 - task: Npm@1
