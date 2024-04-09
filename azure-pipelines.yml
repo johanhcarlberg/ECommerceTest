@@ -67,6 +67,7 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)/publish/ECommerceTest.Frontend'
   env:
     ASPNETCORE_URLS: 'http://localhost:8889'
+    baseAddress: http://localhost:8888
 
 - task: Npm@1
   displayName: Install newman
