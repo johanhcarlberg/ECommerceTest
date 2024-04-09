@@ -111,6 +111,12 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)/RobotFramework/results'
     failTaskOnFailedTests: true
 
+- task: PublishHtmlReport@1
+  inputs:
+    reportDir: '$(System.DefaultWorkingDirectory)/RobotFramework/results/report.html'
+
+
+
 - task: PublishPipelineArtifact@1
   displayName: Publish Robot Framework Reports
   inputs:
